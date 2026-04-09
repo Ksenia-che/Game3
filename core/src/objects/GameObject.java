@@ -39,18 +39,22 @@ public class GameObject {
         return body;
     }
     public int getX() {
+
         return (int) (body.getPosition().x / SCALE);
     }
 
     public int getY() {
+
         return (int) (body.getPosition().y / SCALE);
     }
 
     public void setX(int x) {
+
         body.setTransform(x * SCALE, body.getPosition().y, 0);
     }
 
     public void setY(int y) {
+
         body.setTransform(body.getPosition().x, y * SCALE, 0);
     }
     public void draw(SpriteBatch batch) {

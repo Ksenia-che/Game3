@@ -9,4 +9,5 @@ public class GameSettings {
     public static final float SCALE = 0.05f;
     public static final int SHIP_WIDTH = 150;
     public static final int SHIP_HEIGHT = 150;
+    public static final float SHIP_FORCE_RATIO = 10;
 }
