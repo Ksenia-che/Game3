@@ -38,11 +38,11 @@ public class MyGdxGame extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
 
+		world = new World(new Vector2(0, 0), true);
+		world.step(STEP_TIME, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
 		Box2D.init();
-		world = new World(new Vector2(0, 0), true);
-		world.step(STEP_TIME, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 	}
 
 	@Override

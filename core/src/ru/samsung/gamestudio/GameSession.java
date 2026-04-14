@@ -7,6 +7,8 @@ public class GameSession {
 
     long nextTrashSpawnTime;
     long sessionStartTime;
+    long t2 = TimeUtils.millis();
+    long deltaT = t2 - t1;
 
     public void startGame() {
         sessionStartTime = TimeUtils.millis();
@@ -27,6 +29,4 @@ public class GameSession {
         return (float) Math.exp(-0.001 * (TimeUtils.millis() - sessionStartTime) / 1000);
     }
 
-    long t2 = TimeUtils.millis();
-    long deltaT = t2 - t1;
 }

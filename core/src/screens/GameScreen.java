@@ -31,19 +31,20 @@ public class GameScreen extends ScreenAdapter {
                 GameResources.SHIP_IMG_PATH,
                 myGdxGame.world
         );
+        gameSession = new GameSession();
+        trashArray = new ArrayList<>();
     }
+
     private void handleInput() {
         if (Gdx.input.isTouched()) {
             myGdxGame.touch = myGdxGame.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         }
     }
+
     @Override
     public void render(float delta) {
         myGdxGame.stepWorld();
         handleInput();
-        draw();
-        gameSession = new GameSession();
-        trashArray = new ArrayList<>();
         if (gameSession.shouldSpawnTrash()) {
             TrashObject trashObject = new TrashObject(
                     GameResources.TRASH_IMG_PATH,
@@ -51,8 +52,10 @@ public class GameScreen extends ScreenAdapter {
                     myGdxGame.world
             );
             trashArray.add(trashObject);
+        }
+        draw();
     }
-}
+
     private void updateTrash() {
         for (int i = 0; i < trashArray.size(); i++) {
             if (!trashArray.get(i).isInFrame()) {
@@ -62,12 +65,12 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
-        private void draw() {
+    private void draw() {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         ScreenUtils.clear(Color.CLEAR);
-        for (TrashObject trash : trashArray) trash.draw(myGdxGame.batch);
         myGdxGame.batch.begin();
+        for (TrashObject trash : trashArray) trash.draw(myGdxGame.batch);
         shipObject.draw(myGdxGame.batch);
         myGdxGame.batch.end();
     }

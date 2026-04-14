@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
 
+import static ru.samsung.gamestudio.GameSettings.SCALE;
+
 public class GameObject {
     int width, height;
-    int SCALE;
     public Body body;
     Texture texture;
 
