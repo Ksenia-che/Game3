@@ -31,6 +31,7 @@ public class ShipObject extends GameObject {
         super.draw(batch);
     }
     public void move(Vector3 vector3) {
+        Gdx.input.isTouched();
         body.applyForceToCenter(
                 new Vector2(
                         (vector3.x - getX()) * GameSettings.SHIP_FORCE_RATIO,
