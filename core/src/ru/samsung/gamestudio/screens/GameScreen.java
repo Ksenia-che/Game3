@@ -60,7 +60,6 @@ public class GameScreen extends ScreenAdapter {
         updateBullets();
         updateTrash();
 
-        draw();
 
 
         if (shipObject.needToShoot()) {
@@ -72,6 +71,7 @@ public class GameScreen extends ScreenAdapter {
             );
             bulletArray.add(laserBullet);
         }
+        draw();
     }
 
     private void draw() {
@@ -97,7 +97,7 @@ public class GameScreen extends ScreenAdapter {
 
     private void updateBullets() {
         for (int i = 0; i < bulletArray.size(); i++) {
-            if (!bulletArray.get(i).hasToBeDestroyed()) {
+            if (bulletArray.get(i).hasToBeDestroyed()) {
                 myGdxGame.world.destroyBody(bulletArray.get(i).body);
                 bulletArray.remove(i--);
             }
