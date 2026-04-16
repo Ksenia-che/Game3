@@ -1,11 +1,12 @@
-package screens;
+package ru.samsung.gamestudio.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
-import objects.ShipObject;
-import objects.TrashObject;
+import ru.samsung.gamestudio.objects.BulletObject;
+import ru.samsung.gamestudio.objects.ShipObject;
+import ru.samsung.gamestudio.objects.TrashObject;
 import ru.samsung.gamestudio.GameResources;
 import ru.samsung.gamestudio.GameSession;
 import ru.samsung.gamestudio.GameSettings;
@@ -20,6 +21,7 @@ public class GameScreen extends ScreenAdapter {
     ShipObject shipObject;
     GameSession gameSession;
     ArrayList<TrashObject> trashArray;
+    ArrayList<BulletObject> bulletArray;
 
 
     public GameScreen(MyGdxGame myGdxGame) {
@@ -33,6 +35,7 @@ public class GameScreen extends ScreenAdapter {
         );
         gameSession = new GameSession();
         trashArray = new ArrayList<>();
+        bulletArray = new ArrayList<>();
     }
 
     private void handleInput() {
@@ -53,8 +56,35 @@ public class GameScreen extends ScreenAdapter {
             );
             trashArray.add(trashObject);
         }
+
+        updateBullets();
+        updateTrash();
+
         draw();
+
+
+        if (shipObject.needToShoot()) {
+            BulletObject laserBullet = new BulletObject(
+                    shipObject.getX(), shipObject.getY() + shipObject.height / 2,
+                    GameSettings.BULLET_WIDTH, GameSettings.BULLET_HEIGHT,
+                    GameResources.BULLET_IMG_PATH,
+                    myGdxGame.world
+            );
+            bulletArray.add(laserBullet);
+        }
     }
+
+    private void draw() {
+        myGdxGame.camera.update();
+        myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
+        ScreenUtils.clear(Color.CLEAR);
+        myGdxGame.batch.begin();
+        for (TrashObject trash : trashArray) trash.draw(myGdxGame.batch);
+        for (BulletObject b : bulletArray) b.draw(myGdxGame.batch);
+        shipObject.draw(myGdxGame.batch);
+        myGdxGame.batch.end();
+    }
+
 
     private void updateTrash() {
         for (int i = 0; i < trashArray.size(); i++) {
@@ -65,13 +95,12 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
-    private void draw() {
-        myGdxGame.camera.update();
-        myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
-        ScreenUtils.clear(Color.CLEAR);
-        myGdxGame.batch.begin();
-        for (TrashObject trash : trashArray) trash.draw(myGdxGame.batch);
-        shipObject.draw(myGdxGame.batch);
-        myGdxGame.batch.end();
+    private void updateBullets() {
+        for (int i = 0; i < bulletArray.size(); i++) {
+            if (!bulletArray.get(i).hasToBeDestroyed()) {
+                myGdxGame.world.destroyBody(bulletArray.get(i).body);
+                bulletArray.remove(i--);
+            }
+        }
     }
 }
