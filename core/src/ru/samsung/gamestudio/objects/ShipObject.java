@@ -9,8 +9,10 @@ import ru.samsung.gamestudio.GameSettings;
 
 public class ShipObject extends GameObject {
     long lastShotTime;
+
     public ShipObject(int x, int y, int width, int height, String texturePath, World world) {
         super(texturePath, x, y, width, height, world);
+        body.setLinearDamping(10);
     }
     @Override
     public void draw(SpriteBatch batch) {
@@ -48,6 +50,5 @@ public class ShipObject extends GameObject {
         }
         return false;
     }
-
 }
 

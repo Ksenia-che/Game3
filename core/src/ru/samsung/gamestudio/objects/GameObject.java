@@ -15,6 +15,8 @@ public class GameObject {
         this.width = width;
         this.height = height;
 
+
+
         texture = new Texture(texturePath);
         body = createBody(x, y, world);
     }
@@ -25,8 +27,6 @@ public class GameObject {
 
     private Body createBody(float x, float y, World world) {
         BodyDef def = new BodyDef();
-
-
         def.type = BodyDef.BodyType.DynamicBody;
         def.fixedRotation = true;
         Body body = world.createBody(def);
