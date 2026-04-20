@@ -18,6 +18,9 @@ public class GameObject {
         texture = new Texture(texturePath);
         body = createBody(x, y, world);
     }
+    public void draw(SpriteBatch batch) {
+        batch.draw(texture, getX() - (width / 2f), getY() - (height / 2f), width, height);
+    }
 
 
     private Body createBody(float x, float y, World world) {
@@ -58,8 +61,5 @@ public class GameObject {
     public void setY(int y) {
 
         body.setTransform(body.getPosition().x, y * SCALE, 0);
-    }
-    public void draw(SpriteBatch batch) {
-        batch.draw(texture, getX() - (width / 2f), getY() - (height / 2f), width, height);
     }
 }

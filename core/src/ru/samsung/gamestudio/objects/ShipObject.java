@@ -8,33 +8,9 @@ import com.badlogic.gdx.utils.TimeUtils;
 import ru.samsung.gamestudio.GameSettings;
 
 public class ShipObject extends GameObject {
+    long lastShotTime;
     public ShipObject(int x, int y, int width, int height, String texturePath, World world) {
         super(texturePath, x, y, width, height, world);
-    }
-    long lastShotTime;
-
-    public boolean needToShoot(){
-
-        if (TimeUtils.millis() - lastShotTime >= GameSettings .SHOOTING_COOL_DOWN) {
-            lastShotTime = TimeUtils.millis();
-            return true;
-        }
-        return false;
-    }
-
-    private void putInFrame() {
-        if (getY() > (GameSettings.SCREEN_HEIGHT / 2f - height / 2f)) {
-            setY(GameSettings.SCREEN_HEIGHT / 2 - height / 2);
-        }
-        if (getY() <= (height / 2f)) {
-            setY(height / 2);
-        }
-        if (getX() < (-width / 2f)) {
-            setX(GameSettings.SCREEN_WIDTH);
-        }
-        if (getX() > (GameSettings.SCREEN_WIDTH + width / 2f)) {
-            setX(0);
-        }
     }
     @Override
     public void draw(SpriteBatch batch) {
@@ -50,5 +26,28 @@ public class ShipObject extends GameObject {
                 true
         );
     }
+    private void putInFrame() {
+        if (getY() > (GameSettings.SCREEN_HEIGHT / 2f - height / 2f)) {
+            setY(GameSettings.SCREEN_HEIGHT / 2 - height / 2);
+        }
+        if (getY() <= (height / 2f)) {
+            setY(height / 2);
+        }
+        if (getX() < (-width / 2f)) {
+            setX(GameSettings.SCREEN_WIDTH);
+        }
+        if (getX() > (GameSettings.SCREEN_WIDTH + width / 2f)) {
+            setX(0);
+        }
+    }
+    public boolean needToShoot(){
+
+        if (TimeUtils.millis() - lastShotTime >= GameSettings .SHOOTING_COOL_DOWN) {
+            lastShotTime = TimeUtils.millis();
+            return true;
+        }
+        return false;
+    }
+
 }
 
