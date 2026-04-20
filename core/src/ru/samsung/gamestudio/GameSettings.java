@@ -14,7 +14,7 @@ public class GameSettings {
     public static final float STARTING_TRASH_APPEARANCE_COOL_DOWN = 2000;
     public static final float TRASH_WIDTH = 140;
     public static final float TRASH_HEIGHT = 100;
-    public static final float SHOOTING_COOL_DOWN  = 100;
+    public static final float SHOOTING_COOL_DOWN  = 1000;
     public static final float BULLET_VELOCITY = 200;
     public static final int BULLET_WIDTH = 15;
     public static final int BULLET_HEIGHT = 45;

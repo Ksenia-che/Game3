@@ -20,28 +20,27 @@ public class GameScreen extends ScreenAdapter {
     MyGdxGame myGdxGame;
     ShipObject shipObject;
     GameSession gameSession;
+
     ArrayList<TrashObject> trashArray;
     ArrayList<BulletObject> bulletArray;
 
 
     public GameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
-
+        gameSession = new GameSession();
+        trashArray = new ArrayList<>();
+        bulletArray = new ArrayList<>();
         shipObject = new ShipObject(
                 GameSettings.SCREEN_WIDTH / 2, 150,
                 GameSettings.SHIP_WIDTH, GameSettings.SHIP_HEIGHT,
                 GameResources.SHIP_IMG_PATH,
                 myGdxGame.world
         );
-        gameSession = new GameSession();
-        trashArray = new ArrayList<>();
-        bulletArray = new ArrayList<>();
-    }
 
-    private void handleInput() {
-        if (Gdx.input.isTouched()) {
-            myGdxGame.touch = myGdxGame.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-        }
+    }
+    @Override
+    public void show() {
+        gameSession.startGame();
     }
 
     @Override
@@ -57,9 +56,6 @@ public class GameScreen extends ScreenAdapter {
             trashArray.add(trashObject);
         }
 
-        updateBullets();
-        updateTrash();
-
 
 
         if (shipObject.needToShoot()) {
@@ -71,17 +67,24 @@ public class GameScreen extends ScreenAdapter {
             );
             bulletArray.add(laserBullet);
         }
+        updateBullets();
+        updateTrash();
+
         draw();
     }
-
+    private void handleInput() {
+        if (Gdx.input.isTouched()) {
+            myGdxGame.touch = myGdxGame.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+        }
+    }
     private void draw() {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         ScreenUtils.clear(Color.CLEAR);
         myGdxGame.batch.begin();
         for (TrashObject trash : trashArray) trash.draw(myGdxGame.batch);
-        for (BulletObject b : bulletArray) b.draw(myGdxGame.batch);
         shipObject.draw(myGdxGame.batch);
+        for (BulletObject b : bulletArray) b.draw(myGdxGame.batch);
         myGdxGame.batch.end();
     }
 
