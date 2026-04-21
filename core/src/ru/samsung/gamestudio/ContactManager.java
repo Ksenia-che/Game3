@@ -1,6 +1,7 @@
 package ru.samsung.gamestudio;
 
 import com.badlogic.gdx.physics.box2d.*;
+import ru.samsung.gamestudio.objects.GameObject;
 
 public class ContactManager {
     World world;
@@ -20,7 +21,8 @@ public class ContactManager {
                         || cDef2 == GameSettings.TRASH_BIT && cDef == GameSettings.BULLET_BIT
                         || cDef == GameSettings.TRASH_BIT && cDef2 == GameSettings.SHIP_BIT
                         || cDef2 == GameSettings.TRASH_BIT && cDef == GameSettings.SHIP_BIT) {
-
+                    ((GameObject) fixA.getUserData()).hit();
+                    ((GameObject) fixB.getUserData()).hit();
                 }
             }
 

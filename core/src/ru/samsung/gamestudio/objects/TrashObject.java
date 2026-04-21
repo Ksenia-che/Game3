@@ -8,6 +8,8 @@ import java.util.Random;
 
 public class TrashObject extends GameObject {
     private static final int paddingHorizontal = 30;
+    private int livesLeft;
+
     public TrashObject(String texturePath, int width, int height, World world) {
         super(
                 texturePath,
@@ -18,10 +20,17 @@ public class TrashObject extends GameObject {
                 world
         );
         body.setLinearVelocity(new Vector2(0, -GameSettings.TRASH_VELOCITY));
-
+        livesLeft = 1;
     }
 
     public boolean isInFrame() {
         return getY() + height / 2 > 0;
+    }
+    @Override
+    public void hit() {
+        livesLeft -= 1;
+    }
+    public boolean isAlive() {
+        return livesLeft > 0;
     }
 }

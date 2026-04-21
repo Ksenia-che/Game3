@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
 
+import javax.imageio.metadata.IIOMetadataNode;
+
 import static ru.samsung.gamestudio.GameSettings.SCALE;
 
 public class GameObject {
@@ -26,6 +28,7 @@ public class GameObject {
         batch.draw(texture, getX() - (width / 2f), getY() - (height / 2f), width, height);
     }
 
+    public void hit() {}
 
     private Body createBody(float x, float y, World world) {
         BodyDef def = new BodyDef();
@@ -38,12 +41,11 @@ public class GameObject {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.filter.categoryBits = cBits;
-
-
         fixtureDef.shape = circleShape;
         fixtureDef.density = 0.1f;
         fixtureDef.friction = 1f;
-        body.createFixture(fixtureDef);
+        Fixture fixture = body.createFixture(fixtureDef);
+        fixture.setUserData(this);
         circleShape.dispose();
         body.setTransform(x * SCALE, y * SCALE, 0);
         return body;
