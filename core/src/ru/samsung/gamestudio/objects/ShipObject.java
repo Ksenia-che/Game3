@@ -11,7 +11,7 @@ public class ShipObject extends GameObject {
     long lastShotTime;
 
     public ShipObject(int x, int y, int width, int height, String texturePath, World world) {
-        super(texturePath, x, y, width, height, world);
+        super(texturePath, x, y, width, height, GameSettings.SHIP_BIT, world);
         body.setLinearDamping(10);
     }
     @Override

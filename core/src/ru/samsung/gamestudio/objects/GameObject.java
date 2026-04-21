@@ -9,11 +9,13 @@ import static ru.samsung.gamestudio.GameSettings.SCALE;
 public class GameObject {
     public int width, height;
     public Body body;
+    public short cBits;
     Texture texture;
 
-    GameObject(String texturePath, int x, int y, int width, int height, World world) {
+    GameObject(String texturePath, int x, int y, int width, int height, short shipBit, World world) {
         this.width = width;
         this.height = height;
+        this.cBits = cBits;
 
 
 
@@ -35,6 +37,9 @@ public class GameObject {
         circleShape.setRadius(Math.max(width, height) * SCALE / 2f);
 
         FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.filter.categoryBits = cBits;
+
+
         fixtureDef.shape = circleShape;
         fixtureDef.density = 0.1f;
         fixtureDef.friction = 1f;
