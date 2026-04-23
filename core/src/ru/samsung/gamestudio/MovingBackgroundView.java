@@ -20,6 +20,12 @@ public class MovingBackgroundView extends View {
     public void move() {
         texture1Y -= speed;
         texture2Y -= speed;
+        if (texture1Y <= -GameSettings.SCREEN_HEIGHT) {
+            texture1Y = -GameSettings.SCREEN_HEIGHT;
+        }
+        if (texture2Y <= -GameSettings.SCREEN_HEIGHT) {
+            texture2Y = -GameSettings.SCREEN_HEIGHT;
+        }
     }
     @Override public void dispose() {
         texture.dispose();

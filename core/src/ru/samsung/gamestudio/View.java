@@ -8,6 +8,7 @@ public class View implements Disposable {
     float y;
     float width;
     float height;
+    float leftLives;
 
     public View(float x, float y) {
         this.x = x;

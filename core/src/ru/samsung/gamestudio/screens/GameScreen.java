@@ -2,6 +2,7 @@ package ru.samsung.gamestudio.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import ru.samsung.gamestudio.*;
@@ -19,6 +20,8 @@ public class GameScreen extends ScreenAdapter {
     GameSession gameSession;
     ContactManager contactManager;
     MovingBackgroundView backgroundView;
+    ImageView topBlackoutView;
+    LiveView liveView;
 
     ArrayList<TrashObject> trashArray;
     ArrayList<BulletObject> bulletArray;
@@ -29,6 +32,8 @@ public class GameScreen extends ScreenAdapter {
         gameSession = new GameSession();
         contactManager = new ContactManager(myGdxGame.world);
         backgroundView = new MovingBackgroundView(GameResources.BACKGROUND_IMG_PATH);
+        topBlackoutView = new ImageView(0, 1180, GameResources.BLACKOUT_TOP_IMG_PATH);
+        liveView = new LiveView(305, 1215);
         trashArray = new ArrayList<>();
         bulletArray = new ArrayList<>();
         shipObject = new ShipObject(
@@ -37,7 +42,6 @@ public class GameScreen extends ScreenAdapter {
                 GameResources.SHIP_IMG_PATH,
                 myGdxGame.world
         );
-
     }
     @Override
     public void show() {
@@ -70,6 +74,7 @@ public class GameScreen extends ScreenAdapter {
         }
         updateBullets();
         updateTrash();
+        liveView.setLeftLives(shipObject.getLiveLeft());
 
         draw();
         if (!shipObject.isAlive()) {
@@ -90,6 +95,8 @@ public class GameScreen extends ScreenAdapter {
         for (TrashObject trash : trashArray) trash.draw(myGdxGame.batch);
         shipObject.draw(myGdxGame.batch);
         for (BulletObject b : bulletArray) b.draw(myGdxGame.batch);
+        topBlackoutView.draw(myGdxGame.batch);
+        liveView.draw(myGdxGame.batch);
         myGdxGame.batch.end();
     }
 

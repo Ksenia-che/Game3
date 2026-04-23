@@ -59,5 +59,9 @@ public class ShipObject extends GameObject {
     public boolean isAlive() {
         return livesLeft > 0;
     }
+
+    public int getLiveLeft() {
+        return 0;
+    }
 }
 
