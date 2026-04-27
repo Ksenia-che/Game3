@@ -2,7 +2,9 @@ package ru.samsung.gamestudio;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -19,6 +21,7 @@ public class MyGdxGame extends Game {
 	public World world;
 	public Vector3 touch;
 	float accumulator = 0;
+	public BitmapFont commonWhiteFont;
 
 	public void stepWorld() {
 		float delta = Gdx.graphics.getDeltaTime();
@@ -35,7 +38,7 @@ public class MyGdxGame extends Game {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
-
+		commonWhiteFont = FontBuilder.generate(24, Color.WHITE, GameResources.FONT_PATH);
 		world = new World(new Vector2(0, 0), true);
 		world.step(STEP_TIME, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 		gameScreen = new GameScreen(this);

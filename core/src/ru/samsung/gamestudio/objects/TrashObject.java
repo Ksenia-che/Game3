@@ -10,7 +10,7 @@ public class TrashObject extends GameObject {
     private static final int paddingHorizontal = 30;
     private int livesLeft;
 
-    public TrashObject(String texturePath, int width, int height, World world) {
+    public TrashObject(float texturePath, float width, String height, World world) {
         super(
                 texturePath,
                 width / 2 + paddingHorizontal + (new Random()).nextInt((GameSettings.SCREEN_WIDTH - 2 * paddingHorizontal - width)),

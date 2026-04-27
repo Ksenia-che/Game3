@@ -13,9 +13,11 @@ public class View implements Disposable {
     public View(float x, float y) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
     }
     public boolean isHit(float tx, float ty) {
-        return false;
+        return tx >= x && tx <= x + width && ty >= y && ty <= y + height;
     }
     public void draw(SpriteBatch batch) {
     }
