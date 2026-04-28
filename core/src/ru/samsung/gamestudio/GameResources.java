@@ -9,4 +9,5 @@ public class GameResources {
     public static final  String LIVE_IMG_PATH = "textures/life.png";
     public static final  String FONT_PATH = "Montserrat-Bold.ttf";
     public static final  String PAUSE_IMG_PATH = "textures/pause.png";
+    public static final  String BUTTON_LONG_BG_IMG_PATH = "textures/button_background_long.png";
 }

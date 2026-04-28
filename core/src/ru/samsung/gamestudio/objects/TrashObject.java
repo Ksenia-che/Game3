@@ -11,11 +11,10 @@ public class TrashObject extends GameObject {
     private int livesLeft;
 
     public TrashObject(float texturePath, float width, String height, World world) {
-        super(
-                texturePath,
+        super(texturePath,
+                width, height,
                 width / 2 + paddingHorizontal + (new Random()).nextInt((int) (GameSettings.SCREEN_WIDTH - 2 * paddingHorizontal - width)),
                 GameSettings.SCREEN_HEIGHT + height / 2,
-                width, height,
                 GameSettings.TRASH_BIT,
                 world
         );
