@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
+import ru.samsung.gamestudio.manager.AudioManager;
 import ru.samsung.gamestudio.screens.GameScreen;
 import ru.samsung.gamestudio.screens.MenuScreen;
 
@@ -26,6 +27,7 @@ public class MyGdxGame extends Game {
 	float accumulator = 0;
 	public BitmapFont commonWhiteFont;
 	public MenuScreen menuScreen;
+	public AudioManager audioManager;
 
 
 	public void stepWorld() {
@@ -50,6 +52,7 @@ public class MyGdxGame extends Game {
 		world.step(STEP_TIME, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 		gameScreen = new GameScreen(this);
 		menuScreen = new MenuScreen(this);
+		audioManager = new AudioManager();
 		setScreen(gameScreen);
 
 	}

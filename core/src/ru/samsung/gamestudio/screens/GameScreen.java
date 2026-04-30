@@ -98,6 +98,7 @@ public class GameScreen extends ScreenAdapter {
                     myGdxGame.world
             );
             bulletArray.add(laserBullet);
+            myGdxGame.audioManager.shootSound.play();
         }
         updateBullets();
         updateTrash();
@@ -157,6 +158,7 @@ public class GameScreen extends ScreenAdapter {
 
     private void updateTrash() {
         for (int i = 0; i < trashArray.size(); i++) {
+            boolean hasToBeDestroyed = !trashArray.get(i).isAlive() || !trashArray.get(i).isInFrame();
             if (!trashArray.get(i).isInFrame() || !trashArray.get(i).isAlive()) {
                 myGdxGame.world.destroyBody(trashArray.get(i).body);
                 trashArray.remove(i--);
