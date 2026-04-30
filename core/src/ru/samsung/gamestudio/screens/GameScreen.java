@@ -2,17 +2,15 @@ package ru.samsung.gamestudio.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import ru.samsung.gamestudio.*;
+import ru.samsung.gamestudio.manager.ContactManager;
 import ru.samsung.gamestudio.objects.BulletObject;
 import ru.samsung.gamestudio.objects.ShipObject;
 import ru.samsung.gamestudio.objects.TrashObject;
 
 import java.util.ArrayList;
-
-import static com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable.draw;
 
 public class GameScreen extends ScreenAdapter {
     MyGdxGame myGdxGame;
@@ -35,8 +33,8 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
-        gameSession = new GameSession();
         contactManager = new ContactManager(myGdxGame.world);
+        gameSession = new GameSession();
         backgroundView = new MovingBackgroundView(GameResources.BACKGROUND_IMG_PATH);
         topBlackoutView = new ImageView(0, 1180, GameResources.BLACKOUT_TOP_IMG_PATH);
         scoreTextView = new TextView(myGdxGame.commonWhiteFont, 50, 1215);
@@ -51,9 +49,30 @@ public class GameScreen extends ScreenAdapter {
                 myGdxGame.world
         );
     }
+    private void restartGame() {
+        for (int i = 0; i < trashArray.size(); i++) {
+            myGdxGame.world.destroyBody(trashArray.get(i).body);
+            trashArray.remove(i--);
+        }
+
+        if (shipObject != null) {
+            myGdxGame.world.destroyBody(shipObject.body);
+        }
+
+        shipObject = new ShipObject(
+                GameSettings.SCREEN_WIDTH / 2, 150,
+                GameSettings.SHIP_WIDTH, GameSettings.SHIP_HEIGHT,
+                GameResources.SHIP_IMG_PATH,
+                myGdxGame.world
+        );
+
+        bulletArray.clear();
+        gameSession.startGame();
+    }
     @Override
     public void show() {
         gameSession.startGame();
+        restartGame();
     }
 
     @Override
@@ -94,17 +113,24 @@ public class GameScreen extends ScreenAdapter {
     private void handleInput() {
         if (Gdx.input.isTouched()) {
             myGdxGame.touch = myGdxGame.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-        }
-        switch (gameSession.state) {
-            case PLAYING:
-                if (pauseButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                    gameSession.pauseGame();
-                }
-                shipObject.move(myGdxGame.touch);
-                break;
 
-            case PAUSED:
-                break;
+            switch (gameSession.state) {
+                case PLAYING:
+                    if (pauseButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
+                        gameSession.pauseGame();
+                    }
+                    shipObject.move(myGdxGame.touch);
+                    break;
+
+                case PAUSED:
+                    if (continueButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
+                        gameSession.resumeGame();
+                    }
+                    if (homeButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
+                        System.out.println("end of game");
+                    }
+                    break;
+            }
         }
     }
     private void draw() {
