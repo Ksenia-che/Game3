@@ -15,7 +15,7 @@ public class ButtonView  extends View {
     float textY;
 
     public ButtonView(float x, float y, float width, float height, BitmapFont font, String texturePath, String text) {
-        super(x, y);
+        super(x, y,width, height);
 
         this.text = text;
         this.bitmapFont = font;
@@ -32,6 +32,7 @@ public class ButtonView  extends View {
 
     public ButtonView(float x, float y, float width, float height, String texturePath) {
         super(x, y);
+
         texture  = new Texture(texturePath);
     }
     @Override

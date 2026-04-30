@@ -2,6 +2,7 @@ package ru.samsung.gamestudio;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TextView extends View {
     private BitmapFont font;
@@ -14,11 +15,18 @@ public class TextView extends View {
 
     public TextView(BitmapFont font, float x, float y, String text) {
         this(font, x, y);
-            GlyphLayout glyphLayout = new GlyphLayout(font, text);
-            width = glyphLayout.width;
-            height = glyphLayout.height;
-        }
+        this.text = text;
+        GlyphLayout glyphLayout = new GlyphLayout(font, text);
+        width = glyphLayout.width;
+        height = glyphLayout.height;
+    }
 
-    public void setText(String s)  {
+    public void setText(String s) {
+        this.text = s;
+    }
+
+    @Override
+    public void draw(SpriteBatch batch) {
+        font.draw(batch, text, x, y);
     }
 }

@@ -17,7 +17,7 @@ public class GameObject {
     GameObject(String texturePath, int x, int y, int width, int height, short shipBit, World world) {
         this.width = width;
         this.height = height;
-        this.cBits = cBits;
+        this.cBits = shipBit;
 
 
 

@@ -49,6 +49,7 @@ public class GameScreen extends ScreenAdapter {
                 myGdxGame.world
         );
     }
+
     private void restartGame() {
         for (int i = 0; i < trashArray.size(); i++) {
             myGdxGame.world.destroyBody(trashArray.get(i).body);
@@ -69,6 +70,7 @@ public class GameScreen extends ScreenAdapter {
         bulletArray.clear();
         gameSession.startGame();
     }
+
     @Override
     public void show() {
         gameSession.startGame();
@@ -87,7 +89,6 @@ public class GameScreen extends ScreenAdapter {
             );
             trashArray.add(trashObject);
         }
-
 
 
         if (shipObject.needToShoot()) {
@@ -110,7 +111,9 @@ public class GameScreen extends ScreenAdapter {
         if (!shipObject.isAlive()) {
             System.out.println("Game over!");
         }
+        if (myGdxGame.audioManager.isSoundOn) myGdxGame.audioManager.shootSound.play();
     }
+
     private void handleInput() {
         if (Gdx.input.isTouched()) {
             myGdxGame.touch = myGdxGame.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
@@ -134,6 +137,7 @@ public class GameScreen extends ScreenAdapter {
             }
         }
     }
+
     private void draw() {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
@@ -159,14 +163,18 @@ public class GameScreen extends ScreenAdapter {
     private void updateTrash() {
         for (int i = 0; i < trashArray.size(); i++) {
             boolean hasToBeDestroyed = !trashArray.get(i).isAlive() || !trashArray.get(i).isInFrame();
-            if (!trashArray.get(i).isInFrame() || !trashArray.get(i).isAlive()) {
+            if (!trashArray.get(i).isAlive()) {
+                myGdxGame.audioManager.explosionSound.play(0.2f);
+            }
+            if (hasToBeDestroyed) {
                 myGdxGame.world.destroyBody(trashArray.get(i).body);
                 trashArray.remove(i--);
             }
+            if (myGdxGame.audioManager.isSoundOn) myGdxGame.audioManager.explosionSound.play(0.2f);
         }
     }
-
     private void updateBullets() {
+
         for (int i = 0; i < bulletArray.size(); i++) {
             if (bulletArray.get(i).hasToBeDestroyed()) {
                 myGdxGame.world.destroyBody(bulletArray.get(i).body);

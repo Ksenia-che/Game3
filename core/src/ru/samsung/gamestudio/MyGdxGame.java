@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import ru.samsung.gamestudio.manager.AudioManager;
 import ru.samsung.gamestudio.screens.GameScreen;
 import ru.samsung.gamestudio.screens.MenuScreen;
+import ru.samsung.gamestudio.screens.SettingsScreen;
 
 import static ru.samsung.gamestudio.GameSettings.*;
 
@@ -28,6 +29,8 @@ public class MyGdxGame extends Game {
 	public BitmapFont commonWhiteFont;
 	public MenuScreen menuScreen;
 	public AudioManager audioManager;
+	public SettingsScreen settingsScreen;
+
 
 
 	public void stepWorld() {
@@ -47,13 +50,14 @@ public class MyGdxGame extends Game {
 		camera.setToOrtho(false, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
 		commonWhiteFont = FontBuilder.generate(24, Color.WHITE, GameResources.FONT_PATH);
 		commonBlackFont = FontBuilder.generate(24, Color.BLACK, GameResources.FONT_PATH);
-		largeWhiteFont = FontBuilder.generate(24, Color.WHITE, GameResources.FONT_PATH);
+		largeWhiteFont = FontBuilder.generate(48, Color.WHITE, GameResources.FONT_PATH);
 		world = new World(new Vector2(0, 0), true);
 		world.step(STEP_TIME, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 		gameScreen = new GameScreen(this);
 		menuScreen = new MenuScreen(this);
+		settingsScreen = new SettingsScreen(this);
 		audioManager = new AudioManager();
-		setScreen(gameScreen);
+		setScreen(menuScreen);
 
 	}
 
