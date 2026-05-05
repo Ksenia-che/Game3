@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import ru.samsung.gamestudio.*;
-import ru.samsung.gamestudio.objects.ShipObject;
+import ru.samsung.gamestudio.components.ButtonView;
+import ru.samsung.gamestudio.components.MovingBackgroundView;
+import ru.samsung.gamestudio.components.TextView;
 
 public class MenuScreen extends ScreenAdapter  {
     MyGdxGame myGdxGame;

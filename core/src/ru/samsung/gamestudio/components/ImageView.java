@@ -1,11 +1,9 @@
-package ru.samsung.gamestudio;
+package ru.samsung.gamestudio.components;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
-public class ImageView extends View{
+public class ImageView extends View {
     Texture texture;
     public ImageView(float x, float y, String imagePath){
         super(x, y);

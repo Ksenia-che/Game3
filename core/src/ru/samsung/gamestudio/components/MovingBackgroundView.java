@@ -1,7 +1,7 @@
-package ru.samsung.gamestudio;
+package ru.samsung.gamestudio.components;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import ru.samsung.gamestudio.GameSettings;
 
 public class MovingBackgroundView extends View {
     Texture texture;

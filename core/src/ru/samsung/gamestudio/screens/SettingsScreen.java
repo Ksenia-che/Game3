@@ -1,10 +1,15 @@
 package ru.samsung.gamestudio.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.ScreenUtils;
 import ru.samsung.gamestudio.*;
+import ru.samsung.gamestudio.components.ButtonView;
+import ru.samsung.gamestudio.components.ImageView;
+import ru.samsung.gamestudio.components.MovingBackgroundView;
+import ru.samsung.gamestudio.components.TextView;
+import ru.samsung.gamestudio.manager.MemoryManager;
+
+import java.util.ArrayList;
 
 public class SettingsScreen extends ScreenAdapter {
     MyGdxGame myGdxGame;
@@ -36,6 +41,7 @@ public class SettingsScreen extends ScreenAdapter {
     }
     @Override
     public void render(float delta){
+        handleInput();
         myGdxGame.batch.begin();
 
         backgroundView.draw(myGdxGame.batch);
@@ -56,16 +62,17 @@ public class SettingsScreen extends ScreenAdapter {
                 myGdxGame.setScreen(myGdxGame.menuScreen);
             }
             if (clearSettingView.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                clearSettingView.setText("clear records (cleared)");
+                MemoryManager.saveTableOfRecords(new ArrayList<>());
             }
             if (musicSettingView.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                myGdxGame.audioManager.isMusicOn = !myGdxGame.audioManager.isMusicOn;
-                musicSettingView.setText("music: " + translateStateToText(myGdxGame.audioManager.isMusicOn));
+                MemoryManager.saveMusicSettings(!MemoryManager.loadIsMusicOn());
+                musicSettingView.setText("music: " + translateStateToText(MemoryManager.loadIsMusicOn()));
                 myGdxGame.audioManager.updateMusicFlag();
             }
             if (soundSettingView.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                myGdxGame.audioManager.isSoundOn = !myGdxGame.audioManager.isSoundOn;
-                soundSettingView.setText("sound: " + translateStateToText(myGdxGame.audioManager.isSoundOn));
+                MemoryManager.saveSoundSettings(!MemoryManager.loadIsSoundOn());
+                soundSettingView.setText("sound: " + translateStateToText(MemoryManager.loadIsSoundOn()));
+                myGdxGame.audioManager.updateSoundFlag();
             }
         }
     }

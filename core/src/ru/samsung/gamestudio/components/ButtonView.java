@@ -1,4 +1,4 @@
-package ru.samsung.gamestudio;
+package ru.samsung.gamestudio.components;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -32,7 +32,8 @@ public class ButtonView  extends View {
 
     public ButtonView(float x, float y, float width, float height, String texturePath) {
         super(x, y);
-
+        this.width = width;
+        this.height = height;
         texture  = new Texture(texturePath);
     }
     @Override
