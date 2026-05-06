@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.samsung.gamestudio.GameResources;
 
 public class LiveView extends View {
+    private final static int livePadding = 6;
     Texture texture;
-    int livePadding;
+    private int leftLives;
     public LiveView(float x, float y) {
         super(x, y);
         texture = new Texture(GameResources.LIVE_IMG_PATH);

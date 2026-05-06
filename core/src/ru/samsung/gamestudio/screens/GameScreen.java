@@ -44,6 +44,7 @@ public class GameScreen extends ScreenAdapter {
         topBlackoutView = new ImageView(0, 1180, GameResources.BLACKOUT_TOP_IMG_PATH);
         scoreTextView = new TextView(myGdxGame.commonWhiteFont, 50, 1215);
         liveView = new LiveView(305, 1215);
+        fullBlackoutView = new ImageView(0, 0, GameResources.BLACKOUT_FULL_IMG_PATH);
         pauseButton = new ButtonView(605, 1200, 46, 54, GameResources.PAUSE_IMG_PATH);
         trashArray = new ArrayList<>();
         bulletArray = new ArrayList<>();
@@ -55,6 +56,26 @@ public class GameScreen extends ScreenAdapter {
                 GameResources.SHIP_IMG_PATH,
                 myGdxGame.world
 
+        );
+        pauseButton = new ButtonView(
+                605, 1200,
+                46, 54,
+                GameResources.PAUSE_IMG_PATH
+        );
+        pauseTextView = new TextView(myGdxGame.largeWhiteFont, 282, 842, "Pause");
+        homeButton = new ButtonView(
+                138, 695,
+                200, 70,
+                myGdxGame.commonBlackFont,
+                GameResources.BUTTON_SHORT_BG_IMG_PATH,
+                "Home"
+        );
+        continueButton = new ButtonView(
+                393, 695,
+                200, 70,
+                myGdxGame.commonBlackFont,
+                GameResources.BUTTON_SHORT_BG_IMG_PATH,
+                "Continue"
         );
         recordsListView = new RecordsListView(myGdxGame.commonWhiteFont, 690);
         recordsTextView = new TextView(myGdxGame.largeWhiteFont, 206, 842, "Last records");
@@ -117,21 +138,21 @@ public class GameScreen extends ScreenAdapter {
                         myGdxGame.world
                 );
                 bulletArray.add(laserBullet);
-                myGdxGame.audioManager.shootSound.play();
+                if (myGdxGame.audioManager.isSoundOn) myGdxGame.audioManager.shootSound.play();
             }
             if (!shipObject.isAlive()) {
                 gameSession.endGame();
                 recordsListView.setRecords(MemoryManager.loadRecordsTable());
                 System.out.println("Game over!");
             }
-            if (myGdxGame.audioManager.isSoundOn) myGdxGame.audioManager.shootSound.play();
+
             liveView.setLeftLives(shipObject.getLiveLeft());
 
             updateBullets();
             updateTrash();
             backgroundView.move();
             liveView.setLeftLives(shipObject.getLiveLeft());
-            scoreTextView.setText("Score: " + 100);
+            scoreTextView.setText("Score: " + gameSession.getScore());
 
             myGdxGame.stepWorld();
         }
@@ -172,6 +193,7 @@ public class GameScreen extends ScreenAdapter {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         ScreenUtils.clear(Color.CLEAR);
+
         myGdxGame.batch.begin();
         backgroundView.draw(myGdxGame.batch);
         for (TrashObject trash : trashArray) trash.draw(myGdxGame.batch);
@@ -207,7 +229,6 @@ public class GameScreen extends ScreenAdapter {
                 myGdxGame.world.destroyBody(trashArray.get(i).body);
                 trashArray.remove(i--);
             }
-            if (myGdxGame.audioManager.isSoundOn) myGdxGame.audioManager.explosionSound.play(0.2f);
         }
     }
 

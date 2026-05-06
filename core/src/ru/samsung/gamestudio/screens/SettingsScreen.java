@@ -25,9 +25,20 @@ public class SettingsScreen extends ScreenAdapter {
         backgroundView = new MovingBackgroundView(GameResources.BACKGROUND_IMG_PATH);
         titleTextView = new TextView(myGdxGame.largeWhiteFont, 256, 956, "Settings");
         blackoutImageView = new ImageView(85, 365, GameResources.BLACKOUT_MIDDLE_IMG_PATH);
+        clearSettingView = new TextView(myGdxGame.commonWhiteFont, 173, 599, "clear records");
         musicSettingView = new TextView(myGdxGame.commonWhiteFont, 173, 717, "music: " + "ON");
         soundSettingView = new TextView(myGdxGame.commonWhiteFont, 173, 658, "sound: " + "ON");
-        clearSettingView = new TextView(myGdxGame.commonWhiteFont, 173, 599, "clear records");
+        musicSettingView = new TextView(
+                myGdxGame.commonWhiteFont,
+                173, 717,
+                "music: " + translateStateToText(MemoryManager.loadIsMusicOn())
+        );
+
+        soundSettingView = new TextView(
+                myGdxGame.commonWhiteFont,
+                173, 658,
+                "sound: " + translateStateToText(MemoryManager.loadIsSoundOn())
+        );
         returnButton = new ButtonView(
                 280, 447,
                 160, 70,

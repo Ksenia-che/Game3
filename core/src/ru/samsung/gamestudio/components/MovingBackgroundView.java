@@ -27,6 +27,11 @@ public class MovingBackgroundView extends View {
             texture2Y = -GameSettings.SCREEN_HEIGHT;
         }
     }
+    @Override
+    public void draw(SpriteBatch batch) {
+        batch.draw(texture, 0, texture1Y, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
+        batch.draw(texture, 0, texture2Y, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
+    }
     @Override public void dispose() {
         texture.dispose();
     }

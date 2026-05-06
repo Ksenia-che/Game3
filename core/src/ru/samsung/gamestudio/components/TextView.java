@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TextView extends View {
     protected BitmapFont font;
-    String text;
+    protected String text;
 
     public TextView(BitmapFont font, float x, float y) {
         super(x, y);
@@ -20,7 +20,10 @@ public class TextView extends View {
         width = glyphLayout.width;
         height = glyphLayout.height;
     }
-
+    @Override
+    public void draw(SpriteBatch batch) {
+        font.draw(batch, text, x, y + height);
+    }
     public void setText(String s) {
         this.text = s;
     }
