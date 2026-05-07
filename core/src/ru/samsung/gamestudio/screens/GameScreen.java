@@ -23,8 +23,8 @@ public class GameScreen extends ScreenAdapter {
     ImageView topBlackoutView;
     LiveView liveView;
     ButtonView pauseButton;
-    ButtonView fullBlackoutView;
-    ButtonView pauseTextView;
+    ImageView fullBlackoutView;
+    TextView pauseTextView;
     ButtonView homeButton;
     ButtonView continueButton;
     TextView recordsTextView;
@@ -78,7 +78,7 @@ public class GameScreen extends ScreenAdapter {
                 "Continue"
         );
         recordsListView = new RecordsListView(myGdxGame.commonWhiteFont, 690);
-        recordsTextView = new TextView(myGdxGame.largeWhiteFont, 206, 842, "Last records");
+        recordsTextView = new TextView(myGdxGame.largeWhiteFont, 206, 842,  "Last records");
         homeButton2 = new ButtonView(
                 280, 365,
                 160, 70,
@@ -127,6 +127,11 @@ public class GameScreen extends ScreenAdapter {
                         myGdxGame.world
                 );
                 trashArray.add(trashObject);
+            }
+            if (gameSession.state == GameState.PLAYING) {
+
+                gameSession.updateScore();
+                scoreTextView.setText("Score: " + gameSession.getScore());
             }
 
 

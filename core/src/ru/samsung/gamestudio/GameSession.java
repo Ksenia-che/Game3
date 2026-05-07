@@ -30,12 +30,13 @@ public class GameSession {
         return score;
     }
 
-
     public void startGame() {
         state = GameState.PLAYING;
         sessionStartTime = TimeUtils.millis();
         nextTrashSpawnTime = sessionStartTime + (long) (GameSettings.STARTING_TRASH_APPEARANCE_COOL_DOWN
                 * getTrashPeriodCoolDown());
+        score = 0;
+        destructedTrashNumber = 0;
 
     }
     public void pauseGame() {

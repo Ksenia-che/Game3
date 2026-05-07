@@ -20,16 +20,14 @@ public class TextView extends View {
         width = glyphLayout.width;
         height = glyphLayout.height;
     }
+
     @Override
     public void draw(SpriteBatch batch) {
         font.draw(batch, text, x, y + height);
     }
+
     public void setText(String s) {
         this.text = s;
     }
-
-    @Override
-    public void draw(SpriteBatch batch) {
-        font.draw(batch, text, x, y);
-    }
 }
+

@@ -15,11 +15,12 @@ public class ButtonView  extends View {
     float textY;
 
     public ButtonView(float x, float y, float width, float height, BitmapFont font, String texturePath, String text) {
-        super(x, y,width, height);
+        super(x, y);
 
         this.text = text;
         this.bitmapFont = font;
-
+        this.width = width;
+        this.height = height;
         texture = new Texture(texturePath);
 
         GlyphLayout glyphLayout = new GlyphLayout(bitmapFont, text);
@@ -29,13 +30,16 @@ public class ButtonView  extends View {
         textX = x + (width - textWidth) / 2;
         textY = y + (height + textHeight) / 2;
     }
-
     public ButtonView(float x, float y, float width, float height, String texturePath) {
         super(x, y);
+
+        this.text = "";
         this.width = width;
         this.height = height;
-        texture  = new Texture(texturePath);
+        texture = new Texture(texturePath);
     }
+
+
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(texture, x, y, width, height);
