@@ -44,7 +44,6 @@ public class GameScreen extends ScreenAdapter {
         topBlackoutView = new ImageView(0, 1180, GameResources.BLACKOUT_TOP_IMG_PATH);
         scoreTextView = new TextView(myGdxGame.commonWhiteFont, 50, 1215);
         liveView = new LiveView(305, 1215);
-        fullBlackoutView = new ImageView(0, 0, GameResources.BLACKOUT_FULL_IMG_PATH);
         pauseButton = new ButtonView(605, 1200, 46, 54, GameResources.PAUSE_IMG_PATH);
         trashArray = new ArrayList<>();
         bulletArray = new ArrayList<>();
@@ -62,6 +61,7 @@ public class GameScreen extends ScreenAdapter {
                 46, 54,
                 GameResources.PAUSE_IMG_PATH
         );
+        fullBlackoutView = new ImageView(0, 0, GameResources.BLACKOUT_FULL_IMG_PATH);
         pauseTextView = new TextView(myGdxGame.largeWhiteFont, 282, 842, "Pause");
         homeButton = new ButtonView(
                 138, 695,
@@ -182,7 +182,7 @@ public class GameScreen extends ScreenAdapter {
                         gameSession.resumeGame();
                     }
                     if (homeButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                        System.out.println("end of game");
+                        myGdxGame.setScreen(myGdxGame.menuScreen);
                     }
                     break;
                 case ENDED:
