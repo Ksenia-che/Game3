@@ -12,6 +12,7 @@ import ru.samsung.gamestudio.components.TextView;
 public class MenuScreen extends ScreenAdapter  {
     MyGdxGame myGdxGame;
     TextView titleView;
+    TextView titleView2;
     ButtonView startButtonView;
     ButtonView settingsButtonView;
     ButtonView exitButtonView;
@@ -19,7 +20,8 @@ public class MenuScreen extends ScreenAdapter  {
     public MenuScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         backgroundView = new MovingBackgroundView(GameResources.BACKGROUND_IMG_PATH);
-        titleView = new TextView(myGdxGame. largeWhiteFont, 180, 960, "Space Cleaner");
+        titleView = new TextView(myGdxGame. largeWhiteFont, 130, 960, "Destroy the viruses");
+        titleView2 = new TextView(myGdxGame. commonWhiteFont, 130, 910, "made by: Ksenia-che");
         startButtonView = new ButtonView(140, 646, 440, 70, myGdxGame.commonBlackFont, GameResources.BUTTON_LONG_BG_IMG_PATH, "start");
         settingsButtonView = new ButtonView(140, 551, 440, 70, myGdxGame.commonBlackFont, GameResources.BUTTON_LONG_BG_IMG_PATH, "settings");
         exitButtonView = new ButtonView(140, 456, 440, 70, myGdxGame.commonBlackFont, GameResources.BUTTON_LONG_BG_IMG_PATH, "exit");
@@ -33,6 +35,7 @@ public class MenuScreen extends ScreenAdapter  {
         myGdxGame.batch.begin();
         backgroundView.draw(myGdxGame.batch);
         titleView.draw(myGdxGame.batch);
+        titleView2.draw(myGdxGame.batch);
         exitButtonView.draw(myGdxGame.batch);
         settingsButtonView.draw(myGdxGame.batch);
         startButtonView.draw(myGdxGame.batch);

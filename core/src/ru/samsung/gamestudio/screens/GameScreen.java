@@ -36,6 +36,7 @@ public class GameScreen extends ScreenAdapter {
     ArrayList<BulletObject> bulletArray;
     public TextView scoreTextView;
 
+
     public GameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         contactManager = new ContactManager(myGdxGame.world);
@@ -48,6 +49,7 @@ public class GameScreen extends ScreenAdapter {
         trashArray = new ArrayList<>();
         bulletArray = new ArrayList<>();
         recordsListView = new RecordsListView(myGdxGame.commonWhiteFont, 690);
+
 
         shipObject = new ShipObject(
                 GameSettings.SCREEN_WIDTH / 2, 150,
@@ -145,11 +147,14 @@ public class GameScreen extends ScreenAdapter {
                 bulletArray.add(laserBullet);
                 if (myGdxGame.audioManager.isSoundOn) myGdxGame.audioManager.shootSound.play();
             }
+
+
             if (!shipObject.isAlive()) {
                 gameSession.endGame();
                 recordsListView.setRecords(MemoryManager.loadRecordsTable());
                 System.out.println("Game over!");
             }
+
 
             liveView.setLeftLives(shipObject.getLiveLeft());
 
@@ -161,38 +166,37 @@ public class GameScreen extends ScreenAdapter {
 
             myGdxGame.stepWorld();
         }
-        draw();
-    }
+            draw();
+        }
 
 
-    private void handleInput() {
-        if (Gdx.input.isTouched()) {
-            myGdxGame.touch = myGdxGame.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+        private void handleInput () {
+            if (Gdx.input.isTouched()) {
+                myGdxGame.touch = myGdxGame.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+                switch (gameSession.state) {
+                    case PLAYING:
+                        if (pauseButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
+                            gameSession.pauseGame();
+                        }
+                        shipObject.move(myGdxGame.touch);
+                        break;
 
-            switch (gameSession.state) {
-                case PLAYING:
-                    if (pauseButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                        gameSession.pauseGame();
-                    }
-                    shipObject.move(myGdxGame.touch);
-                    break;
-
-                case PAUSED:
-                    if (continueButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                        gameSession.resumeGame();
-                    }
-                    if (homeButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                        myGdxGame.setScreen(myGdxGame.menuScreen);
-                    }
-                    break;
-                case ENDED:
-                    if (homeButton2.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
-                        myGdxGame.setScreen(myGdxGame.menuScreen);
-                    }
-                    break;
+                    case PAUSED:
+                        if (continueButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
+                            gameSession.resumeGame();
+                        }
+                        if (homeButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
+                            myGdxGame.setScreen(myGdxGame.menuScreen);
+                        }
+                        break;
+                    case ENDED:
+                        if (homeButton2.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
+                            myGdxGame.setScreen(myGdxGame.menuScreen);
+                        }
+                        break;
+                }
             }
         }
-    }
 
     private void draw() {
         myGdxGame.camera.update();
@@ -223,11 +227,13 @@ public class GameScreen extends ScreenAdapter {
     }
 
     private void updateTrash() {
+
         for (int i = 0; i < trashArray.size(); i++) {
             boolean hasToBeDestroyed = !trashArray.get(i).isAlive() || !trashArray.get(i).isInFrame();
 
             if (!trashArray.get(i).isAlive()) {
                 gameSession.destructionRegistration();
+
                 if (myGdxGame.audioManager.isSoundOn) myGdxGame.audioManager.explosionSound.play(0.2f);
             }
             if (hasToBeDestroyed) {

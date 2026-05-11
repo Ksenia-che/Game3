@@ -30,6 +30,7 @@ public class GameSession {
         return score;
     }
 
+
     public void startGame() {
         state = GameState.PLAYING;
         sessionStartTime = TimeUtils.millis();

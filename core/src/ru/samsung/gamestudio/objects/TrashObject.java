@@ -28,6 +28,7 @@ public class TrashObject extends GameObject {
     @Override
     public void hit() {
         livesLeft -= 1;
+
     }
     public boolean isAlive() {
         return livesLeft > 0;
